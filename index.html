@@ -33,7 +33,6 @@
 
     .button-container { margin-top: 20px; }
 
-    /* Item buttons (selectable) */
     .send-button {
       display: block;
       margin: 10px auto;
@@ -54,14 +53,12 @@
       box-shadow: 0 0 15px rgba(0, 123, 255, 1);
     }
 
-    /* Selected state */
     .send-button.selected {
       outline: 2px solid rgba(0, 123, 255, 0.9);
       box-shadow: 0 0 18px rgba(0, 123, 255, 0.95);
       transform: translateY(-1px);
     }
 
-    /* Action bar buttons */
     .action-button {
       display: inline-block;
       margin: 10px auto;
@@ -88,6 +85,12 @@
       color: #d7d7d7;
     }
 
+    .action-bar {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
     .count {
       margin-top: 6px;
       font-size: 14px;
@@ -103,134 +106,79 @@
 
   <h2>Kismet Link Assistant</h2>
 
-  <input type="text" id="recipient" placeholder="Enter email or phone number">
+  <div class="action-bar">
+    <input type="text" id="recipient" placeholder="Enter email or phone number">
 
-  <!-- Action Bar -->
+    
+  </div>
+
   <button class="action-button" onclick="sendSelected()">Send Selected</button>
   <button class="action-button secondary" onclick="clearSelection()">Clear Selection</button>
   <div class="count" id="selectedCount">Selected: 0</div>
 
   <div class="button-container">
-    <!-- NOTE: These are now SELECT buttons (no sending on click) -->
-    <button class="send-button"
-      onclick="toggleSelect(this)"
-      data-title="SAP Evaluation ($500)"
-      data-link="https://connect.intuit.com/portal/app/CommerceNetwork/view/scs-v1-e7cdd688c5e64c94a8aaa05716ff56ccf12b2f91d5a54206b33394bce9e4e0d864a65709b5b849c2bd398c5e3b68a681?locale=EN_US">
-      SAP Evaluation ($500)
-    </button>
+    <button class="send-button" onclick="toggleSelect(this)" data-title="SAP Evaluation ($500)" data-link="https://connect.intuit.com/portal/app/CommerceNetwork/view/scs-v1-e7cdd688c5e64c94a8aaa05716ff56ccf12b2f91d5a54206b33394bce9e4e0d864a65709b5b849c2bd398c5e3b68a681?locale=EN_US">SAP Evaluation ($500)</button>
 
-    <button class="send-button"
-      onclick="toggleSelect(this)"
-      data-title="NON-DOT SAP Evaluation ($250)"
-      data-link="https://connect.intuit.com/portal/app/CommerceNetwork/view/scs-v1-4f700450d7744244817346be6e7e626fbb1114821cd1438a98f3c0a417811cdc9f38784fc50c48a6ba69a2133af3fff3?locale=EN_US">
-      NON-DOT SAP Evaluation ($250)
-    </button>
+    <button class="send-button" onclick="toggleSelect(this)" data-title="NON-DOT SAP Evaluation ($250)" data-link="https://connect.intuit.com/portal/app/CommerceNetwork/view/scs-v1-4f700450d7744244817346be6e7e626fbb1114821cd1438a98f3c0a417811cdc9f38784fc50c48a6ba69a2133af3fff3?locale=EN_US">NON-DOT SAP Evaluation ($250)</button>
 
-    <button class="send-button"
-      onclick="toggleSelect(this)"
-      data-title="DOT SAP Intake"
-      data-link="https://sapbykismet.na4.documents.adobe.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhCGjvEtwmwo_WOf0feQEytc8MGVna-B2ZdwHICCW8mw-Rx3OffFKmM8xVmSv6P90oI*">
-      DOT SAP INTAKE
-    </button>
+    <button class="send-button" onclick="toggleSelect(this)" data-title="DOT SAP Intake" data-link="https://sapbykismet.na4.documents.adobe.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhCGjvEtwmwo_WOf0feQEytc8MGVna-B2ZdwHICCW8mw-Rx3OffFKmM8xVmSv6P90oI*">DOT SAP INTAKE</button>
 
-    <button class="send-button"
-      onclick="toggleSelect(this)"
-      data-title="NON DOT SAP Intake"
-      data-link="https://sapbykismet.na4.documents.adobe.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhCIuMPH5ghZ9vAdMCiFn7uNR8QhZ-tYrQuyhFuMYNgvsvjcyC1ALdy3aIu1rjMDrXQ*">
-      NON DOT SAP INTAKE
-    </button>
+    <button class="send-button" onclick="toggleSelect(this)" data-title="NON DOT SAP Intake" data-link="https://sapbykismet.na4.documents.adobe.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhCIuMPH5ghZ9vAdMCiFn7uNR8QhZ-tYrQuyhFuMYNgvsvjcyC1ALdy3aIu1rjMDrXQ*">NON DOT SAP INTAKE</button>
 
+    <button class="send-button" onclick="toggleSelect(this)" data-title="Designate SAP Guide" data-link="https://clearinghouse.fmcsa.dot.gov/Resource/Index/Designate-SAP">Designate SAP Guide</button>
 
-   
-
-    <button class="send-button"
-      onclick="toggleSelect(this)"
-      data-title="Designate SAP Guide"
-      data-link="https://clearinghouse.fmcsa.dot.gov/Resource/Index/Designate-SAP">
-      Designate SAP Guide
-    </button>
-
-    <button class="send-button"
-      onclick="toggleSelect(this)"
-      data-title="RTD Infographic"
-      data-link="https://clearinghouse.fmcsa.dot.gov/Resource/Index/RTD-Infographic">
-      RTD Infographic
-    </button>
-
-
+    <button class="send-button" onclick="toggleSelect(this)" data-title="RTD Infographic" data-link="https://clearinghouse.fmcsa.dot.gov/Resource/Index/RTD-Infographic">RTD Infographic</button>
   </div>
 
   <script>
     function updateCount() {
-      const selected = document.querySelectorAll(".send-button.selected").length;
-      document.getElementById("selectedCount").textContent = `Selected: ${selected}`;
+      const selected = document.querySelectorAll('.send-button.selected').length;
+      document.getElementById('selectedCount').textContent = `Selected: ${selected}`;
     }
 
     function toggleSelect(button) {
-      button.classList.toggle("selected");
+      button.classList.toggle('selected');
       updateCount();
     }
 
     function clearSelection() {
-      document.querySelectorAll(".send-button.selected").forEach(btn => btn.classList.remove("selected"));
+      document.querySelectorAll('.send-button.selected').forEach(btn => btn.classList.remove('selected'));
       updateCount();
     }
 
     function buildCombinedMessage() {
-      const selectedButtons = Array.from(document.querySelectorAll(".send-button.selected"));
+      const selectedButtons = Array.from(document.querySelectorAll('.send-button.selected'));
       if (selectedButtons.length === 0) return null;
 
       const lines = [];
-      lines.push("Here are the requested links/info:");
-      lines.push("");
+      lines.push('Here are the requested links/info:');
+      lines.push('');
 
       selectedButtons.forEach((btn, idx) => {
-        const title = btn.getAttribute("data-title") || `Item ${idx + 1}`;
-        const link = btn.getAttribute("data-link") || "";
-        const customBody = btn.getAttribute("data-body"); // optional
-
+        const title = btn.getAttribute('data-title') || `Item ${idx + 1}`;
+        const link = btn.getAttribute('data-link') || '';
         lines.push(`— ${title}`);
-        if (customBody && customBody.trim().length > 0) {
-          lines.push(customBody.trim());
-          lines.push("");
-          lines.push(`Link: ${link}`);
-        } else {
-          lines.push(link);
-        }
-        lines.push(""); // blank line between items
+        lines.push(link);
+        lines.push('');
       });
 
-      return {
-        subject: `Links (${selectedButtons.length})`,
-        body: lines.join("\n")
-      };
+      return { subject: `Links (${selectedButtons.length})`, body: lines.join('\n') };
     }
 
     function sendSelected() {
-      const recipient = document.getElementById("recipient").value.trim();
-      if (!recipient) {
-        alert("Please enter an email or phone number.");
-        return;
-      }
+      const recipient = document.getElementById('recipient').value.trim();
+      if (!recipient) return alert('Please enter an email or phone number.');
 
       const payload = buildCombinedMessage();
-      if (!payload) {
-        alert("Select at least one item first.");
-        return;
-      }
+      if (!payload) return alert('Select at least one item first.');
 
-      // Basic routing: email if it contains "@", otherwise SMS
-      if (recipient.includes("@")) {
-        const mailto = `mailto:${recipient}?subject=${encodeURIComponent(payload.subject)}&body=${encodeURIComponent(payload.body)}`;
-        window.open(mailto);
+      if (recipient.includes('@')) {
+        window.open(`mailto:${recipient}?subject=${encodeURIComponent(payload.subject)}&body=${encodeURIComponent(payload.body)}`);
       } else {
-        // SMS (note: desktop browsers may not support sms: well)
-        const sms = `sms:${recipient}?body=${encodeURIComponent(payload.body)}`;
-        window.open(sms);
+        window.open(`sms:${recipient}?body=${encodeURIComponent(payload.body)}`);
       }
     }
 
-    // init
     updateCount();
   </script>
 </body>
