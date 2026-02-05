@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Link Sender App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #000000;
+      color: #adadae;
+      margin: 20px;
+    }
+
+    .logo-container { margin-bottom: 20px; }
+    .logo-container img { max-width: 380px; height: auto; }
+
+    input, button {
+      font-size: 16px;
+      margin: 10px;
+      padding: 12px;
+      width: 80%;
+      max-width: 400px;
+      border: none;
+      border-radius: 5px;
+    }
+
+    input {
+      background-color: #3c3c44;
+      color: #ffffff;
+    }
+
+    .button-container { margin-top: 20px; }
+
+    /* Item buttons (selectable) */
+    .send-button {
+      display: block;
+      margin: 10px auto;
+      padding: 12px;
+      font-size: 18px;
+      cursor: pointer;
+      background: linear-gradient(45deg, #3c3c44, #656565);
+      color: silver;
+      border: none;
+      border-radius: 8px;
+      width: 80%;
+      max-width: 400px;
+      transition: all 0.2s;
+      box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+    }
+
+    .send-button:active {
+      box-shadow: 0 0 15px rgba(0, 123, 255, 1);
+    }
+
+    /* Selected state */
+    .send-button.selected {
+      outline: 2px solid rgba(0, 123, 255, 0.9);
+      box-shadow: 0 0 18px rgba(0, 123, 255, 0.95);
+      transform: translateY(-1px);
+    }
+
+    /* Action bar buttons */
+    .action-button {
+      display: inline-block;
+      margin: 10px auto;
+      padding: 12px;
+      font-size: 18px;
+      cursor: pointer;
+      background: linear-gradient(45deg, #1f1f25, #3a3a44);
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      width: 80%;
+      max-width: 400px;
+      transition: all 0.2s;
+      box-shadow: 0 0 8px rgba(40, 167, 69, 0.35);
+    }
+
+    .action-button:active {
+      box-shadow: 0 0 15px rgba(40, 167, 69, 0.85);
+    }
+
+    .action-button.secondary {
+      background: linear-gradient(45deg, #2b2b33, #40404a);
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.08);
+      color: #d7d7d7;
+    }
+
+    .count {
+      margin-top: 6px;
+      font-size: 14px;
+      color: #c7c7c7;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="logo-container">
+    <img src="https://raw.githubusercontent.com/joshuapair/ARS-Full-Logo/main/Screen%20Shot%202025-02-23%20at%201.43.19%20PM.png" alt="Company Logo">
+  </div>
+
+  <h2>Kismet Link Assistant</h2>
+
+  <input type="text" id="recipient" placeholder="Enter email or phone number">
+
+  <!-- Action Bar -->
+  <button class="action-button" onclick="sendSelected()">Send Selected</button>
+  <button class="action-button secondary" onclick="clearSelection()">Clear Selection</button>
+  <div class="count" id="selectedCount">Selected: 0</div>
+
+  <div class="button-container">
+    <!-- NOTE: These are now SELECT buttons (no sending on click) -->
+    <button class="send-button"
+      onclick="toggleSelect(this)"
+      data-title="SAP Evaluation ($500)"
+      data-link="https://connect.intuit.com/portal/app/CommerceNetwork/view/scs-v1-e7cdd688c5e64c94a8aaa05716ff56ccf12b2f91d5a54206b33394bce9e4e0d864a65709b5b849c2bd398c5e3b68a681?locale=EN_US">
+      SAP Evaluation ($500)
+    </button>
+
+    <button class="send-button"
+      onclick="toggleSelect(this)"
+      data-title="NON-DOT SAP Evaluation ($250)"
+      data-link="https://connect.intuit.com/portal/app/CommerceNetwork/view/scs-v1-4f700450d7744244817346be6e7e626fbb1114821cd1438a98f3c0a417811cdc9f38784fc50c48a6ba69a2133af3fff3?locale=EN_US">
+      NON-DOT SAP Evaluation ($250)
+    </button>
+
+    <button class="send-button"
+      onclick="toggleSelect(this)"
+      data-title="SAP Intake"
+      data-link="https://sapbykismet.na4.documents.adobe.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhCGjvEtwmwo_WOf0feQEytc8MGVna-B2ZdwHICCW8mw-Rx3OffFKmM8xVmSv6P90oI*">
+      SAP Intake
+    </button>
+
+    <button class="send-button"
+      onclick="toggleSelect(this)"
+      data-title="SAP Release of Information"
+      data-link="https://sapbykismet.na4.documents.adobe.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhCIuMPH5ghZ9vAdMCiFn7uNR8QhZ-tYrQuyhFuMYNgvsvjcyC1ALdy3aIu1rjMDrXQ*">
+      SAP Release of Information
+    </button>
+
+
+   
+
+    <button class="send-button"
+      onclick="toggleSelect(this)"
+      data-title="Designate SAP Guide"
+      data-link="https://clearinghouse.fmcsa.dot.gov/Resource/Index/Designate-SAP">
+      Designate SAP Guide
+    </button>
+
+    <button class="send-button"
+      onclick="toggleSelect(this)"
+      data-title="RTD Infographic"
+      data-link="https://clearinghouse.fmcsa.dot.gov/Resource/Index/RTD-Infographic">
+      RTD Infographic
+    </button>
+
+
+  </div>
+
+  <script>
+    function updateCount() {
+      const selected = document.querySelectorAll(".send-button.selected").length;
+      document.getElementById("selectedCount").textContent = `Selected: ${selected}`;
+    }
+
+    function toggleSelect(button) {
+      button.classList.toggle("selected");
+      updateCount();
+    }
+
+    function clearSelection() {
+      document.querySelectorAll(".send-button.selected").forEach(btn => btn.classList.remove("selected"));
+      updateCount();
+    }
+
+    function buildCombinedMessage() {
+      const selectedButtons = Array.from(document.querySelectorAll(".send-button.selected"));
+      if (selectedButtons.length === 0) return null;
+
+      const lines = [];
+      lines.push("Here are the requested links/info:");
+      lines.push("");
+
+      selectedButtons.forEach((btn, idx) => {
+        const title = btn.getAttribute("data-title") || `Item ${idx + 1}`;
+        const link = btn.getAttribute("data-link") || "";
+        const customBody = btn.getAttribute("data-body"); // optional
+
+        lines.push(`— ${title}`);
+        if (customBody && customBody.trim().length > 0) {
+          lines.push(customBody.trim());
+          lines.push("");
+          lines.push(`Link: ${link}`);
+        } else {
+          lines.push(link);
+        }
+        lines.push(""); // blank line between items
+      });
+
+      return {
+        subject: `Links (${selectedButtons.length})`,
+        body: lines.join("\n")
+      };
+    }
+
+    function sendSelected() {
+      const recipient = document.getElementById("recipient").value.trim();
+      if (!recipient) {
+        alert("Please enter an email or phone number.");
+        return;
+      }
+
+      const payload = buildCombinedMessage();
+      if (!payload) {
+        alert("Select at least one item first.");
+        return;
+      }
+
+      // Basic routing: email if it contains "@", otherwise SMS
+      if (recipient.includes("@")) {
+        const mailto = `mailto:${recipient}?subject=${encodeURIComponent(payload.subject)}&body=${encodeURIComponent(payload.body)}`;
+        window.open(mailto);
+      } else {
+        // SMS (note: desktop browsers may not support sms: well)
+        const sms = `sms:${recipient}?body=${encodeURIComponent(payload.body)}`;
+        window.open(sms);
+      }
+    }
+
+    // init
+    updateCount();
+  </script>
+</body>
+</html>
+
